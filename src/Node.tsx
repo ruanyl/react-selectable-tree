@@ -5,7 +5,6 @@ export interface NodeComponentProps {
   node?: any;
   level?: number;
   selectable?: boolean;
-  selections?: any;
   checked?: boolean;
   indeterminate?: boolean;
   toggleExpansion?: (e?: any) => void;
@@ -15,11 +14,10 @@ export interface NodeComponentProps {
 interface NodeProps {
   node: any; // the node data
   NodeComponent: React.ComponentType<any>;
-  selections?: any;
   checked?: boolean;
   indeterminate?: boolean;
   level?: number;
-  onClick?: (item: any) => any;
+  onNodeClick?: (item: any) => any;
   onToggle?: (item: any) => any;
   selectable?: boolean;
   query?: string;
@@ -30,7 +28,7 @@ interface DefaultNodeProps {
   checked: boolean;
   indeterminate: boolean;
   level: number;
-  onClick: (item?: any) => any;
+  onNodeClick: (item?: any) => any;
   onToggle: (item?: any) => any;
   selectable: boolean;
 }
@@ -44,7 +42,7 @@ export class Node extends React.PureComponent<NodeProps, State> {
     checked: false,
     indeterminate: false,
     level: 1,
-    onClick: T,
+    onNodeClick: T,
     onToggle: T,
     selectable: false,
   };
@@ -58,8 +56,7 @@ export class Node extends React.PureComponent<NodeProps, State> {
     };
   }
 
-  toggleExpansion = (e: any) => {
-    e.stopPropagation();
+  toggleExpansion = () => {
     this.setState({
       expanded: !this.state.expanded
     });
@@ -70,11 +67,9 @@ export class Node extends React.PureComponent<NodeProps, State> {
     this.props.onToggle!(node);
   }
 
-  onClick = (e: any) => {
-    // should not bubble up to parent node
-    e.stopPropagation();
+  onNodeClick = () => {
     const {node} = this.props;
-    this.props.onClick!(node);
+    this.props.onNodeClick!(node);
   }
 
   render() {
@@ -86,6 +81,7 @@ export class Node extends React.PureComponent<NodeProps, State> {
           expanded={this.state.expanded}
           toggleExpansion={this.toggleExpansion}
           toggleSelection={this.onToggle}
+          onClick={this.onNodeClick}
         />
         {this.state.expanded && !!this.props.children ? <div className="sub-list">{this.props.children}</div> : null}
       </React.Fragment>

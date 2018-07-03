@@ -19,11 +19,15 @@ const nodes = [{
   ],
 }];
 
-const NodeComponent: React.SFC<any> = ({node, toggleExpansion}) => {
-  return <div onClick={toggleExpansion}>{node.label}</div>
+const NodeComponent: React.SFC<any> = ({node, toggleExpansion, onClick}) => {
+  const handleClick = () => {
+    toggleExpansion()
+    onClick()
+  }
+  return <div onClick={handleClick}>{node.label}</div>
 }
 
 render(
-  <Tree data={nodes} NodeComponent={NodeComponent} />,
+  <Tree data={nodes} NodeComponent={NodeComponent} onNodeClick={node => console.log(node)} />,
   document.getElementById('root')
 )

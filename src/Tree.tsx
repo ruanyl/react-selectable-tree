@@ -7,10 +7,9 @@ type ChildrenResolver = (item: any) => any;
 
 export interface GeneralTreeProps{
   NodeComponent: React.ComponentType<any>;
-  selections?: any;
   isExpandable?: (item?: any, level?: number) => boolean;
   resolveChildren?: ChildrenResolver;
-  onClick?: (item?: any) => any;
+  onNodeClick?: (item?: any) => any;
   onSelectionChanged?: () => void;
   onToggle?: (item?: any) => any;
   selectedIndex?: number;
