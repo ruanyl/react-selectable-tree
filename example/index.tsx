@@ -17,7 +17,7 @@ const nodes = [{
     { value: 'phobos', label: 'Phobos', children: [{value: 'phobos', label: 'Phobos-1'}] },
     { value: 'deimos', label: 'Deimos' },
   ],
-}];
+}]
 
 const NodeComponent: React.SFC<any> = ({node, toggleExpansion, onClick}) => {
   const handleClick = () => {

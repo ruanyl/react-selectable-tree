@@ -1,40 +1,29 @@
-import * as React from 'react';
-import {T} from './utils';
-
-export interface NodeComponentProps {
-  node?: any;
-  level?: number;
-  selectable?: boolean;
-  checked?: boolean;
-  indeterminate?: boolean;
-  toggleExpansion?: (e?: any) => void;
-  toggleSelection?: (e?: any) => void;
-}
+import * as React from 'react'
+import {T} from './utils'
 
 interface NodeProps {
-  node: any; // the node data
-  NodeComponent: React.ComponentType<any>;
-  checked?: boolean;
-  indeterminate?: boolean;
-  level?: number;
-  onNodeClick?: (item: any) => any;
-  onToggle?: (item: any) => any;
-  selectable?: boolean;
-  query?: string;
-  passedProps?: {[key: string]: any};
+  node: any // the node data
+  NodeComponent: React.ComponentType<any>
+  checked?: boolean
+  indeterminate?: boolean
+  level?: number
+  onNodeClick?: (item: any) => any
+  onToggle?: (item: any) => any
+  selectable?: boolean
+  passedProps?: {[key: string]: any}
 }
 
 interface DefaultNodeProps {
-  checked: boolean;
-  indeterminate: boolean;
-  level: number;
-  onNodeClick: (item?: any) => any;
-  onToggle: (item?: any) => any;
-  selectable: boolean;
+  checked: boolean
+  indeterminate: boolean
+  level: number
+  onNodeClick: (item?: any) => any
+  onToggle: (item?: any) => any
+  selectable: boolean
 }
 
 interface State {
-  expanded: boolean;
+  expanded: boolean
 }
 
 export class Node extends React.PureComponent<NodeProps, State> {
@@ -45,35 +34,35 @@ export class Node extends React.PureComponent<NodeProps, State> {
     onNodeClick: T,
     onToggle: T,
     selectable: false,
-  };
+  }
 
-  state: State;
+  state: State
 
   constructor(props: NodeProps) {
-    super(props);
+    super(props)
     this.state = {
       expanded: false
-    };
+    }
   }
 
   toggleExpansion = () => {
     this.setState({
       expanded: !this.state.expanded
-    });
+    })
   }
 
   onToggle = () => {
-    const {node} = this.props;
-    this.props.onToggle!(node);
+    const {node} = this.props
+    this.props.onToggle!(node)
   }
 
   onNodeClick = () => {
-    const {node} = this.props;
-    this.props.onNodeClick!(node);
+    const {node} = this.props
+    this.props.onNodeClick!(node)
   }
 
   render() {
-    const {NodeComponent, ...props} = this.props;
+    const {NodeComponent, ...props} = this.props
     return (
       <React.Fragment>
         <NodeComponent
@@ -85,6 +74,6 @@ export class Node extends React.PureComponent<NodeProps, State> {
         />
         {this.state.expanded && !!this.props.children ? <div className="sub-list">{this.props.children}</div> : null}
       </React.Fragment>
-    );
+    )
   }
 }
